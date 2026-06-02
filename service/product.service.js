@@ -48,6 +48,13 @@ const createProduct = async ({
   return newProduct
 }
 
+const getAllProducts = async() => {
+   const products = await Product.find().sort({ createdAt: -1 })
+
+   return products
+}
+
 module.exports = {
   createProduct,
+  getAllProducts
 }

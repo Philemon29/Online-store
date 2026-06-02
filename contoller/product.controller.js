@@ -4,6 +4,8 @@ const createProduct = async (req, res) => {
   try {
     const { name, price, description, category, inStock } = req.body
 
+    console.log(`the body is ${JSON.stringify(req.body)}`)
+
     if (!name || !price || !description || !category || !inStock) {
       return res.status(400).json({ message: "All fields are required" })
     }
@@ -36,6 +38,23 @@ const createProduct = async (req, res) => {
   }
 }
 
+const getAllProducts = async(req, res) => {
+    try{
+        const products = await productService.getAllProducts()
+
+        return res.status(200).json({
+            message: "Products retrieved successfully",
+            products,
+        })
+    }catch(error){
+        console.log(error)
+        return res.status(500).json({
+            message: error.message || "Server error",
+        })
+    }
+}
+
 module.exports = {
   createProduct,
+  getAllProducts
 }

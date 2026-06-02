@@ -9,6 +9,7 @@ const JWT_SECRETE = 'dancode'
 const auth = async(req, res, next) => {
       const token = req.header("Authorization").split(' ')[1]
 
+       console.log(`the token is ${token}`)
       if(!token){
          return res.status(401).json({message: "Access denied, authorization token was not provided"})
       }
