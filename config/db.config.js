@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+
+const dotenv = require("dotenv");
+dotenv.config();
+
+const url = "mongodb://127.0.0.1:27017/expressclass22"
 
 const connectDB = async () => {
   try {
-    console.log('Attempting MongoDB connection...');
-
-    await mongoose.connect('mongodb://127.0.0.1:27017/expressclass22');
-
-    console.log('MONGODB CONNECTED SUCCESSFULLY');
-  } catch (error) {
-    console.error('FULL ERROR:');
-    console.error(error);
-
+    await mongoose.connect(url);
+    console.log("✅ MongoDB Connected...");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err);
     process.exit(1);
   }
 };

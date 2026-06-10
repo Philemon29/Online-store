@@ -54,7 +54,38 @@ const getAllProducts = async() => {
    return products
 }
 
+const getSingleProduct = async(productId) => {
+   const product = await Product.findById(productId)
+   return product
+}
+
+const updateProduct = async(productId, updatedData) => {
+    const updatedProduct = await Product.findByIdAndUpdate(productId, updatedData, {
+       new: true,
+        runValidators: true,
+    })
+
+    return updatedProduct
+}
+
+const searchProduct = async(name, category) => {
+    const query = {};
+
+    if(name){
+        query.name = {$regex: name, $options: 'i'}
+    }
+
+    if(category){
+       query.category = category;
+    }
+    const product = await Product.find(query).sort({ createdAt: -1  })
+    return product
+}
+
 module.exports = {
   createProduct,
-  getAllProducts
+  getAllProducts,
+  getSingleProduct,
+  updateProduct,
+  searchProduct
 }
