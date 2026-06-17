@@ -38,4 +38,14 @@ const confirmOrder = async(req, res) => {
          res.status(500).json({message: error.message || "Server error"})
     }
 }
-module.exports = {placeOrder, confirmOrder}
+
+const getOrders = async(req, res) => {
+     try{
+          const userId = req.user._id;
+          const orders = await orderService.getOrders(userId);
+     }catch(error){
+          res.status(500).json({message: error.message || "Server error"})
+
+     }
+}
+module.exports = {placeOrder, confirmOrder, getOrders}

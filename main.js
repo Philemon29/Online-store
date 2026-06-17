@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose')
 const dotenv = require('dotenv');
+dotenv.config()
 const bcrypt = require('bcrypt');
 const connectDB = require('./config/db.config');
 const User = require('./models/user.model')
@@ -8,7 +9,6 @@ const app = express()
 app.use(express.json())
 
 
-dotenv.config()
 
 const PORT = process.env.PORT || 6000
 

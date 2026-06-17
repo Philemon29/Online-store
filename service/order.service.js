@@ -110,6 +110,10 @@ const confirmOrder = async(transactionId) => {
      return order
 }
 
+const getOrders = async(userId) => {
+    const orders = await Order.findOne(userId)
+    return orders
+}
 
 
 module.exports = {placeOrder, confirmOrder}
