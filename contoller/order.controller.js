@@ -1,4 +1,4 @@
-const orderService = require('../services/order.service')
+const orderService = require('../service/order.service')
 
 const placeOrder = async(req, res) => {
      try{
@@ -14,4 +14,28 @@ const placeOrder = async(req, res) => {
      }
 }
 
-module.exports = {placeOrder}
+const confirmOrder = async(req, res) => {
+    try{
+        const{transaction_id} = req.query;
+
+        if(!transaction_id) return res.status(400).json({message: "Transaction id is required"})
+
+        const order = await orderService.confirmOrder(transaction_id);
+
+        res.status(200).json({
+             message: `Order ${order.status === "completed" ? "confirmed": "Failed"}`,
+             data: order
+        })
+
+        if(order.status === 'completed'){
+             return res.redirect(`${process.env.FRONTEND_URL}/payment-success?orderId=${order._id}`)
+        }else{
+              return res.redirect(`${process.env.FRONTEND_URL}/payment-failed?orderId=${order._id}`)
+        }
+
+        
+    }catch(error){
+         res.status(500).json({message: error.message || "Server error"})
+    }
+}
+module.exports = {placeOrder, confirmOrder}

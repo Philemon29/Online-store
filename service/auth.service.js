@@ -97,7 +97,7 @@ const resetPassword = async(email, code, newPassword) => {
 
     const token = await Token.findOne({userId: user._id, code})
 
-    if(!token) return new Error("Invalid or expired password reset code")
+    if(!token) return new Error("Invalid or expired password reset code");
 
     const hashedPassword = await bcrypt.hash(newPassword, 10)
 
